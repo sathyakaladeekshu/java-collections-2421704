@@ -1,29 +1,31 @@
 package com.linkedin.collections;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.stream.Collectors;
 
 public class RoomService {
 
 	private Collection<Room> inventory;
 
 	public RoomService() {
-		this.inventory = new HashSet<>();
+		this.inventory = new ArrayList<>();
 	}
 	
 	public boolean hasRoom(Room room) {
 		
 	// 1. Returns a boolean that indicates if the Room Inventory contains a Room.
-		
-		return false;
+		return inventory.contains(room);
+
 	}
 	
 	public Room[] asArray() {
 		
 	// 2. Returns all Rooms as an Array of Rooms in the **order** they were Added.
-		
-		return null;
+		Room [] roomArray = new Room[inventory.size()];
+		return inventory.toArray(roomArray);
 	}
 	
 	public Collection<Room> getByType(String type){
@@ -31,10 +33,12 @@ public class RoomService {
 	/*
 	   3. Return a new Collection of Rooms where Room#type matches the provided String.
 		  The original Room Inventory collection MUST NOT BE MODIFIED.
+
+
 	*/
 		
-		return null;
-		
+		Collection<Room> newInventory = inventory.stream().filter( room -> room.getType().contains(type)).collect(Collectors.toList());
+		return  newInventory;
 	}
 
 	public Collection<Room> getInventory() {
