@@ -1,9 +1,6 @@
 package com.linkedin.collections;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class RoomService {
@@ -11,20 +8,24 @@ public class RoomService {
 	private Collection<Room> inventory;
 
 	public RoomService() {
-		this.inventory = new LinkedHashSet<>();
+		this.inventory = new ArrayList<>();
 	}
 	
 	public void applyDiscount(final double discount) {
 		
 		//Reduces the rate of each room by the provided discount
+		System.out.println("Discount"+discount);
+		this.inventory.stream().forEach( room -> room.setRate(room.getRate()-(room.getRate()*discount)));
 	
 	}
 
 	public Collection<Room> getRoomsByCapacity(final int requiredCapacity) {
 		
 		//Returns a new collection of rooms that meet or exceed the provided capacity
+
+		return inventory.stream().filter(room -> room.getCapacity()>=requiredCapacity).collect(Collectors.toList());
 		
-		return null;
+
 		
 	}
 	
@@ -32,7 +33,7 @@ public class RoomService {
 	
 		//Returns a new collection of rooms with a rate below the provided rate and that match the provided type
 		
-		return null;
+		return inventory.stream().filter(room -> room.getRate() < rate && room.getType().equals(type)).collect(Collectors.toList());
 		
 	}
 	
