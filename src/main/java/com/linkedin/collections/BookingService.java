@@ -18,9 +18,8 @@ public class BookingService {
 		 * successfully placed in the room.
 		 */
 		
-		 if (null  == bookings.putIfAbsent(room,guest))
-			 return true;
-		 return false;
+		 return (null  == bookings.putIfAbsent(room,guest));
+
 	}
 
 	public double totalRevenue() {
