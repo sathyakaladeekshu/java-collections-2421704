@@ -18,7 +18,9 @@ public class BookingService {
 		 * successfully placed in the room.
 		 */
 		
-		return false;
+		 if (null  == bookings.putIfAbsent(room,guest))
+			 return true;
+		 return false;
 	}
 
 	public double totalRevenue() {
@@ -27,7 +29,9 @@ public class BookingService {
 		 * 2. Returns a double that totals the rate of each Room booked
 		 * in the bookings Map.
 		 */
-		return 0;
+
+		return bookings.keySet().stream().mapToDouble(room -> room.getRate()).sum();
+
 	}
 	
 	public Map<Room, Guest> getBookings() {
